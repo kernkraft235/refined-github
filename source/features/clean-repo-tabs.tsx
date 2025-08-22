@@ -123,7 +123,7 @@ async function moveRareTabs(): Promise<void | false> {
 	// Wait for the nav dropdown to be loaded #5244
 	await elementReady('.UnderlineNav-actions ul');
 	onlyShowInDropdown('security-tab');
-	onlyShowInDropdown('insights-tab');
+	//onlyShowInDropdown('insights-tab');
 }
 
 void features.add(import.meta.url, {
