@@ -1,7 +1,8 @@
 import {ElementNotFoundError} from 'select-dom';
 import {$, $$, $optional} from 'select-dom/strict.js';
-// Nodes may be exactly `null`
-import type {Nullable} from 'vitest';
+
+// eslint-disable-next-line @typescript-eslint/no-restricted-types -- Nodes may be exactly `null`
+type Nullable<T> = T | null;
 
 /**
  * Append to an element, but before a element that might not exist.
@@ -111,9 +112,7 @@ export function removeTextInTextNode(node: Text | ChildNode, text: RegExp | stri
 
 export function getElementByAriaLabelledBy<T extends HTMLElement>(baseSelector: string, label: string): T {
 	for (const element of $$(baseSelector + '[aria-labelledby]')) {
-		const labelElement = $optional(
-			`[id="${element.getAttribute('aria-labelledby')!}"]`,
-		);
+		const labelElement = $optional(`[id="${element.getAttribute('aria-labelledby')!}"]`);
 
 		if (labelElement?.textContent?.trim() === label) {
 			return element as T;
@@ -121,4 +120,19 @@ export function getElementByAriaLabelledBy<T extends HTMLElement>(baseSelector: 
 	}
 
 	throw new ElementNotFoundError(`Expected element labelled "${label}" not found in: ${baseSelector}`);
+}
+
+export function getClasses(element: Element): Set<string> {
+	const list = new Set<string>();
+	for (const cls of element.classList) {
+		if (!cls.startsWith('rgh-')) {
+			list.add(cls);
+		}
+	}
+
+	return list;
+}
+
+export function isSmallDevice(): boolean {
+	return screen.width < 500;
 }

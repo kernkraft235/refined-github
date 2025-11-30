@@ -90,7 +90,7 @@ const v4defaults: GHGraphQLApiOptions = {
 	allowErrors: false,
 };
 
-export const v3uncached = async (
+const v3uncached = async (
 	query: string,
 	options: GHRestApiOptions = v3defaults,
 ): Promise<RestResponse> => {
@@ -108,7 +108,7 @@ export const v3uncached = async (
 		body: body && JSON.stringify(body),
 		headers: {
 			'User-Agent': 'Refined GitHub',
-			'Accept': 'application/vnd.github.v3+json',
+			Accept: 'application/vnd.github.v3+json',
 			...headers,
 			...personalToken && {Authorization: `token ${personalToken}`},
 		},
@@ -127,7 +127,7 @@ export const v3uncached = async (
 	throw await getError(apiResponse);
 };
 
-export const v3 = mem(v3uncached, {
+const v3 = mem(v3uncached, {
 	cacheKey: JSON.stringify,
 });
 
@@ -205,7 +205,8 @@ const v4uncached = async (
 		headers: {
 			'User-Agent': 'Refined GitHub',
 			'Content-Type': 'application/json',
-			'Authorization': `bearer ${personalToken}`,
+			// eslint-disable-next-line @typescript-eslint/naming-convention -- External API
+			Authorization: `bearer ${personalToken}`,
 		},
 		method: 'POST',
 		body: JSON.stringify({

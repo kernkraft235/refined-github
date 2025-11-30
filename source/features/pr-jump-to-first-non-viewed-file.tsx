@@ -21,8 +21,8 @@ function jumpToFirstNonViewed(): void {
 
 const selectors = [
 	'.diffbar-item progress-bar', // TODO: Old PR Files view, drop in 2026
-	'section[class*="PullRequestFilesToolbar-module"] > div:last-child',
-].join(',');
+	'.d-flex:has([class*="ViewedFileProgress"])',
+];
 async function init(signal: AbortSignal): Promise<void> {
 	const bar = await elementReady(selectors);
 	bar!.style.cursor = 'pointer';

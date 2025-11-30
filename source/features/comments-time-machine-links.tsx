@@ -1,7 +1,9 @@
 import React from 'dom-chef';
-import {$, $$optional} from 'select-dom/strict.js';
+import {$} from 'select-dom/strict.js';
 import elementReady from 'element-ready';
 import * as pageDetect from 'github-url-detection';
+import delegate, {type DelegateEvent} from 'delegate-it';
+import HistoryIcon from 'octicons-plain-react/History';
 
 import features from '../feature-manager.js';
 import api from '../github-helpers/api.js';
@@ -14,6 +16,13 @@ import observe from '../helpers/selector-observer.js';
 import GetCommitAtDate from './comments-time-machine-links.gql';
 import {expectToken} from '../github-helpers/github-token.js';
 import getDefaultBranch from '../github-helpers/get-default-branch.js';
+
+const commentSelector = [
+	'.loaded .react-issue-body', // Issue description
+	'.react-issue-comment', // Issue comment
+	'[data-testid="review-thread"] > div', // Review thread comment
+	'.js-comment', // PR description or comment
+].join(',');
 
 async function updateURLtoDatedSha(url: GitHubFileURL, date: string): Promise<void> {
 	const {repository} = await api.v4(GetCommitAtDate, {variables: {date, branch: url.branch}});
@@ -72,24 +81,26 @@ async function showTimeMachineBar(): Promise<void | false> {
 	);
 }
 
-function addInlineLinks(comment: HTMLElement, timestamp: string): void {
-	for (const link of $$optional(`a[href^="${location.origin}"]:not(.${linkifiedURLClass})`, comment)) {
-		if (!pageDetect.isRepoGitObject(link)) {
-			continue;
-		}
-
-		// Skip permalinks
-		const linkParts = link.pathname.split('/');
-		if (/^[\da-f]{40}$/.test(linkParts[4])) {
-			continue;
-		}
-
-		saveOriginalHref(link);
-
-		const searchParameters = new URLSearchParams(link.search);
-		searchParameters.set('rgh-link-date', timestamp);
-		link.search = String(searchParameters);
+function addDateParameterToLink(link: HTMLAnchorElement): void {
+	if (!pageDetect.isRepoGitObject(link)) {
+		return;
 	}
+
+	// Skip permalinks
+	const linkParts = link.pathname.split('/');
+	if (/^[\da-f]{40}$/.test(linkParts[4])) {
+		return;
+	}
+
+	const comment = link.closest(commentSelector)!;
+	const relativeTime = $('relative-time', comment);
+	const timestamp = relativeTime.attributes.datetime.value;
+
+	saveOriginalHref(link);
+
+	const searchParameters = new URLSearchParams(link.search);
+	searchParameters.set('rgh-link-date', timestamp);
+	link.search = String(searchParameters);
 }
 
 function addDropdownLink(menu: HTMLElement, timestamp: string): void {
@@ -103,6 +114,35 @@ function addDropdownLink(menu: HTMLElement, timestamp: string): void {
 		>
 			View repo at this time
 		</a>,
+	);
+}
+
+function addDropdownLinkReact({delegateTarget: delegate}: DelegateEvent): void {
+	const timestamp = delegate.closest('[class^="Box"]')!.querySelector('relative-time[datetime]')!.attributes.datetime.value;
+	const menuItemList = $('[class^="prc-ActionList-ActionList"]');
+	const menuItem = $('[class^="prc-ActionList-ActionListItem"]', menuItemList).cloneNode(true);
+
+	menuItem.removeAttribute('aria-keyshortcuts');
+	menuItem.role = 'none';
+	const menuItemContentWrapper = $('[class^="prc-ActionList-ActionListContent"]', menuItem);
+	const link = (
+		<a
+			href={buildRepoURL(`tree/HEAD@{${timestamp}}`)}
+			className={menuItemContentWrapper.className + ' ' + linkifiedURLClass}
+			role="menuitem"
+			title="Browse repository like it appeared on this day"
+			aria-keyshortcuts="v"
+		>
+		</a>
+	);
+	link.append(...menuItemContentWrapper.childNodes);
+	menuItemContentWrapper.replaceWith(link);
+	$('[class^="prc-ActionList-ItemLabel"]', menuItem).textContent = 'View repo at this time';
+	$('[class^="prc-ActionList-LeadingVisual"]', menuItem).replaceChildren(<HistoryIcon />);
+
+	menuItemList.append(
+		<li className="dropdown-divider" aria-hidden="true" data-component="ActionList.Divider" />,
+		menuItem,
 	);
 }
 
@@ -122,18 +162,16 @@ async function init(signal: AbortSignal): Promise<void> {
 			.datetime
 			.value;
 
-		addInlineLinks(menu.closest('.js-comment')!, timestamp);
 		addDropdownLink(menu, timestamp);
 	}, {signal});
 
-	observe([
-		'div.react-issue-comment', // Comments
-		'div.react-issue-body', // First comment
-		'[data-testid="review-thread"] > div',
-	], comment => {
-		const timestamp = $('relative-time', comment).attributes.datetime.value;
-		addInlineLinks(comment, timestamp);
-	}, {signal});
+	delegate(`:is(${commentSelector}) button[data-component="IconButton"]:has(> .octicon-kebab-horizontal)`, 'click', addDropdownLinkReact, {signal});
+
+	observe(
+		`:is(${commentSelector}) a[href^="${location.origin}"]:not(.${linkifiedURLClass})`,
+		addDateParameterToLink,
+		{signal},
+	);
 }
 
 void features.add(import.meta.url, {
@@ -159,7 +197,8 @@ void features.add(import.meta.url, {
 /*
 Test URLs
 
-Find them in https://github.com/refined-github/refined-github/pull/1863
+https://github.com/refined-github/refined-github/pull/1863
+https://github.com/refined-github/sandbox/issues/108
 
 See the bar on:
 

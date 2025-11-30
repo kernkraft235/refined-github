@@ -15,7 +15,7 @@ import showToast from '../github-helpers/toast.js';
 import {getConversationNumber, getRepo} from '../github-helpers/index.js';
 import createMergeabilityRow from '../github-widgets/mergeability-row.js';
 import {expectToken} from '../github-helpers/github-token.js';
-import {prMergeabilityBoxCaption} from '../github-helpers/selectors.js';
+import {deletedHeadRepository, prMergeabilityBoxCaption} from '../github-helpers/selectors.js';
 
 // TODO: Use CachedMap after https://github.com/fregante/webext-storage-cache/issues/51
 const nativeRepos = new CachedFunction('native-update-button', {
@@ -25,7 +25,7 @@ const nativeRepos = new CachedFunction('native-update-button', {
 	staleWhileRevalidate: {
 		days: 1,
 	},
-	updater: async (_nameWithOwner: string): Promise<boolean> => {
+	async updater(_nameWithOwner: string): Promise<boolean> {
 		throw new TypeError('bad usage');
 	},
 });
@@ -57,6 +57,7 @@ async function handler({delegateTarget: button}: DelegateEvent<MouseEvent, HTMLB
 	button.disabled = true;
 	await showToast(async () => {
 		// Reads Error#message or GitHub’s "message" response
+		// eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable -- Just pass it along
 		const response = await mergeBranches().catch(error => error);
 		if (response instanceof Error || !response.ok) {
 			throw new Error(`Error updating the branch: ${response.message as string}`, {cause: response});
@@ -84,7 +85,7 @@ function createButton(): JSX.Element {
 async function addButton(): Promise<void> {
 	if (canNativelyUpdate()) {
 		// Ideally the "canNativelyUpdate" observer is fired first and this listener isn't reached, but that is not guaranteed.
-		disableFeatureOnRepo();
+		await disableFeatureOnRepo();
 		return;
 	}
 
@@ -165,7 +166,7 @@ void features.add(import.meta.url, {
 	],
 	exclude: [
 		pageDetect.isClosedConversation,
-		() => $('.head-ref').title === 'This repository has been deleted',
+		() => elementExists(deletedHeadRepository),
 	],
 	awaitDomReady: true, // DOM-based exclusions
 	init,

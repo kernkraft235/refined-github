@@ -15,6 +15,12 @@
 		"screenshot": "https://user-images.githubusercontent.com/1402241/69044026-c5b17d80-0a26-11ea-86ae-c95f89d3669a.png"
 	},
 	{
+		"id": "actions-run-removal",
+		"description": "Lets you cancel or delete workflow runs faster from the workflow list.",
+		"css": true,
+		"screenshot": "https://github.com/user-attachments/assets/a054f9b4-9d56-40c0-9aac-09a8b07bbb3b"
+	},
+	{
 		"id": "align-issue-labels",
 		"description": "In issue/PR lists, aligns the labels to the left, below each title.",
 		"css": true,
@@ -48,8 +54,8 @@
 	},
 	{
 		"id": "clean-conversation-filters",
-		"description": "Hides <code>Projects</code> and <code>Milestones</code> filters in issue/PR lists if they are empty.",
-		"screenshot": "https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/262557246-4ef1c702-eece-4701-9000-0aad21c54c1b.png"
+		"description": "Hides <code>Projects</code> filter in issue/PR lists if it is empty.",
+		"screenshot": "https://github.com/user-attachments/assets/b690405f-b138-413d-9779-9467c160e802"
 	},
 	{
 		"id": "clean-conversation-headers",
@@ -169,11 +175,6 @@
 		"id": "conversation-links-on-repo-lists",
 		"description": "Adds a link to the issues and pulls on the user profile repository tab and global search.",
 		"screenshot": "https://user-images.githubusercontent.com/16872793/78712349-82c54900-78e6-11ea-8328-3c2d39a78862.png"
-	},
-	{
-		"id": "convert-pr-to-draft-improvements",
-		"description": "Moves the \"Convert PR to Draft\" button to the mergeability box and adds visual feedback to its confirm button.",
-		"screenshot": "https://user-images.githubusercontent.com/1402241/95644892-885f3f80-0a7f-11eb-8428-8e0fb0c8dfa5.gif"
 	},
 	{
 		"id": "convert-release-to-draft",
@@ -488,6 +489,11 @@
 		"screenshot": "https://github.com/user-attachments/assets/8646d663-7458-4e6d-888a-68d38110fcda"
 	},
 	{
+		"id": "new-milestone-button",
+		"description": "Adds a 'New Milestone' button to the milestone page.",
+		"screenshot": "https://github.com/user-attachments/assets/1fceb336-6d32-4733-afe0-9971989b1987"
+	},
+	{
 		"id": "new-or-deleted-file",
 		"description": "Indicates with an icon whether files in commits and PRs are being added or removed.",
 		"screenshot": "https://user-images.githubusercontent.com/1402241/90332474-23262b00-dfb5-11ea-9a03-8fd676ea0fdd.png"
@@ -541,7 +547,7 @@
 	},
 	{
 		"id": "open-all-notifications",
-		"description": "Adds a button to open all your unread notifications at once.",
+		"description": "Adds a button to the notification page to open all your unread notifications at once.",
 		"css": true,
 		"screenshot": "https://github-production-user-asset-6210df.s3.amazonaws.com/140871606/257085496-17e5c6fa-6bad-443d-96d2-d97e73cd1a5e.png"
 	},
@@ -857,6 +863,12 @@
 		"screenshot": "https://github-production-user-asset-6210df.s3.amazonaws.com/1402241/238186901-cbc98b51-d173-40c6-b21e-5f0bae3d800c.png"
 	},
 	{
+		"id": "sticky-comment-header",
+		"description": "Makes the comment header sticky when scrolling through long comments. Requires <code>show-names</code> to be enabled.",
+		"css": true,
+		"screenshot": "https://github.com/user-attachments/assets/0d6deca0-0f49-4aa3-ab23-0cfbde4fa4e8"
+	},
+	{
 		"id": "sticky-conversation-list-toolbar",
 		"description": "Makes the issue/PR list’s filters toolbar sticky.",
 		"css": true,
@@ -929,8 +941,8 @@
 	},
 	{
 		"id": "unread-anywhere",
-		"description": "Adds a global shortcut to open all your unread notifications at once: <kbd>g</kbd> <kbd>u</kbd>",
-		"screenshot": "https://github.com/user-attachments/assets/3afb7e86-66e8-4b26-a5c0-9c93fb5d8141"
+		"description": "Adds a button to the global header to open your unread notifications from any page.",
+		"screenshot": "https://github.com/user-attachments/assets/978ac1fe-db98-40f9-9b56-7d289849aa2f"
 	},
 	{
 		"id": "unreleased-commits",
@@ -951,12 +963,6 @@
 		"id": "useful-not-found-page",
 		"description": "Adds possible related pages and alternatives on 404 pages.",
 		"screenshot": "https://user-images.githubusercontent.com/1402241/46402857-7bdada80-c733-11e8-91a1-856573078ff5.png"
-	},
-	{
-		"id": "user-local-time",
-		"description": "Shows the user local time in their hovercard (based on their last commit).",
-		"css": true,
-		"screenshot": "https://github-production-user-asset-6210df.s3.amazonaws.com/140871606/257039621-132bd789-e213-4a89-83ff-e1266215c60d.png"
 	},
 	{
 		"id": "user-profile-follower-badge",

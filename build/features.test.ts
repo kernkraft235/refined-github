@@ -54,7 +54,9 @@ const screenshotRegex = regexJoinWithSeparator('|', [imageRegex, rghUploadsRegex
 class FeatureFile {
 	readonly id: FeatureID;
 	readonly path: string;
-	constructor(readonly name: string) {
+	readonly name: string;
+	constructor(name: string) {
+		this.name = name;
 		this.id = path.parse(name).name as FeatureID;
 		this.path = path.join('source/features', name);
 	}
@@ -63,7 +65,7 @@ class FeatureFile {
 		return existsSync(this.path);
 	}
 
-	// eslint-disable-next-line node/prefer-global/buffer, ts/no-restricted-types -- Just passing it
+	// eslint-disable-next-line @typescript-eslint/no-restricted-types, n/prefer-global/buffer -- Just passing it
 	contents(): Buffer {
 		return readFileSync(this.path);
 	}
@@ -161,6 +163,7 @@ function validateTsx(file: FeatureFile): void {
 			`${file.id} uses the v4 API, so it should include \`await expectToken()\` in its init function or, if the token is optional, \`hasToken\` anywhere`,
 		);
 	}
+
 	if (file.contents().includes('.addCssFeature')) {
 		assert(
 			file.css.exists(),

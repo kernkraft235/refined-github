@@ -71,8 +71,9 @@ function isEnterprise(): boolean {
 }
 
 function getExclusions(): string | void {
-	if (isEnterprise())
+	if (isEnterprise()) {
 		return 'Hotfixes are not applied on GitHub Enterprise.';
+	}
 
 	if (isDevelopmentVersion()) {
 		return 'Hotfixes are not applied in the development version';
@@ -81,9 +82,9 @@ function getExclusions(): string | void {
 
 async function showStoredCssHotfixes(): Promise<void> {
 	$('#hotfixes-field').textContent
-	= getExclusions()
-		?? await styleHotfixes.getCached(version)
-		?? 'No CSS found in cache.';
+		= getExclusions()
+			?? await styleHotfixes.getCached(version)
+			?? 'No CSS found in cache.';
 }
 
 async function fetchHotfixes(event: MouseEvent): Promise<void> {
@@ -92,9 +93,9 @@ async function fetchHotfixes(event: MouseEvent): Promise<void> {
 	try {
 		// Style
 		$('#hotfixes-field').textContent
-		= getExclusions()
-			?? await styleHotfixes.getFresh(version)
-			?? 'No hotfixes needed for this version! 🎉';
+			= getExclusions()
+				?? await styleHotfixes.getFresh(version)
+				?? 'No hotfixes needed for this version! 🎉';
 
 		// Broken features
 		const storage = await brokenFeatures.getFresh();

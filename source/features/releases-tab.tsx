@@ -38,7 +38,7 @@ export async function getReleases(): Promise<[0] | [number, 'Tags' | 'Releases']
 	return releasesCount.get(repo);
 }
 
-async function fetchCounts(nameWithOwner: string): Promise<[0] | [number, 'Tags' | 'Releases'] > {
+async function fetchCounts(nameWithOwner: string): Promise<[0] | [number, 'Tags' | 'Releases']> {
 	const [owner, name] = nameWithOwner.split('/');
 	const {repository: {releases, tags}} = await api.v4(GetReleasesCount, {
 		variables: {name, owner},
@@ -96,9 +96,9 @@ async function addReleasesDropdownItem(dropdownMenu: HTMLElement): Promise<false
 		dropdownMenu,
 		'.dropdown-divider', // Won't exist if `clean-repo-tabs` is disabled
 		createDropdownItem({
-			'label': type,
-			'href': buildRepoURL(type.toLowerCase()),
-			'icon': TagIcon,
+			label: type,
+			href: buildRepoURL(type.toLowerCase()),
+			icon: TagIcon,
 			'data-menu-item': 'rgh-releases-item',
 		}),
 	);

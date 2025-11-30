@@ -14,7 +14,8 @@ import {expectToken} from '../github-helpers/github-token.js';
 async function getMergeBaseReference(): Promise<string> {
 	const {base, head} = getBranches();
 	// This v3 response is relatively large, but it doesn't seem to be available on v4
-	const response = await api.v3(`compare/${base.relative}...${head.relative}`);
+	// Cache buster due to: https://github.com/refined-github/refined-github/issues/7312
+	const response = await api.v3(`compare/${base.relative}...${head.relative}?cachebust=${Date.now()}`);
 	return response.merge_base_commit.sha; // #4679
 }
 
@@ -98,7 +99,7 @@ async function handleClick(event: DelegateEvent<MouseEvent, HTMLButtonElement>):
 		return;
 	}
 
-	await showToast(async progress => discardChanges(progress!, originalFileName, newFileName, commitTitle), {
+	await showToast(async progress => discardChanges(progress, originalFileName, newFileName, commitTitle), {
 		message: 'Loading info…',
 		doneMessage: 'Changes discarded',
 	});

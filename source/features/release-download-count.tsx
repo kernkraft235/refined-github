@@ -8,7 +8,7 @@ import './release-download-count.css';
 
 import React from 'dom-chef';
 import {$$} from 'select-dom';
-import {$} from 'select-dom/strict.js';
+import {$, $optional} from 'select-dom/strict.js';
 import DownloadIcon from 'octicons-plain-react/Download';
 import * as pageDetect from 'github-url-detection';
 import {abbreviateNumber} from 'js-abbreviation-number';
@@ -19,7 +19,7 @@ import api from '../github-helpers/api.js';
 import observe from '../helpers/selector-observer.js';
 import {createHeatIndexFunction} from '../helpers/math.js';
 import {expectToken} from '../github-helpers/github-token.js';
-import {assertNodeContent} from '../helpers/dom-utils';
+import {assertNodeContent, getClasses} from '../helpers/dom-utils.js';
 
 type Asset = {
 	name: string;
@@ -49,22 +49,29 @@ async function addCounts(assetsList: HTMLElement): Promise<void> {
 		// Match the asset in the DOM to the asset in the API response
 		const downloadCount = assets[assetLink.pathname.split('/').pop()!] ?? 0;
 
-		// Place next to asset size
+		// Place next to asset sha
 		const assetSize = assetLink
 			.closest('.Box-row')!
 			.querySelector(':scope > .flex-justify-end > span')!;
-		assertNodeContent(assetSize.firstChild, /^\d+ \w{2,5}$/);
+		assertNodeContent(assetSize.firstChild, /^\d+(\.\d+)? \w{2,5}$/);
 
 		assetSize.classList.replace('text-sm-left', 'text-md-right');
-		assetSize.parentElement!.classList.add('rgh-release-download-count');
 
-		const classes = new Set(assetSize.classList);
+		const classes = getClasses(assetSize);
 		if (downloadCount === 0) {
+			// Don't show, but preserve space/column
 			classes.add('v-hidden');
 		}
 
-		assetSize.before(
-			<span className={[...classes].join(' ')}>
+		// Add class to parent in order to define "columns"
+		assetSize.parentElement!.classList.add('rgh-release-download-count');
+
+		// Hide sha on mobile. They have the classes but they're not correct (they hide in mid sizes, but show on smallest and largest...)
+		$optional(':scope > div:has(clipboard-copy)', assetSize.parentElement!)?.classList.add('d-none');
+
+		// Add at the beginning of the line to avoid (clickable) content shift
+		assetSize.parentElement!.prepend(
+			<span className={[...getClasses(assetSize)].join(' ')}>
 				<span
 					className="d-inline-block text-right"
 					title={`${downloadCount} downloads`}
@@ -74,6 +81,12 @@ async function addCounts(assetsList: HTMLElement): Promise<void> {
 				</span>
 			</span>,
 		);
+
+		// Remove via JS because we can't override utility classes...
+		for (const column of assetSize.parentElement!.children) {
+			column.classList.remove('ml-sm-3', 'ml-md-4');
+			column.classList.add('ml-lg-4');
+		}
 	}
 }
 
@@ -95,8 +108,9 @@ void features.add(import.meta.url, {
 
 Test URLs
 
-- One release: https://github.com/cli/cli/releases/tag/v2.30.0
+- One release: https://github.com/refined-github/sandbox/releases/tag/v1.0.0
 - List of releases: https://github.com/cli/cli/releases
 - Lots of assets: https://github.com/notepad-plus-plus/notepad-plus-plus/releases
+- Assets without hashes: https://github.com/NateShoffner/Disable-Nvidia-Telemetry/releases/tag/1.1
 
 */

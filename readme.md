@@ -110,6 +110,7 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 - [](# "mobile-tabs") [Makes the tabs more compact on mobile so more of them can be seen.](https://user-images.githubusercontent.com/1402241/245446231-28f44b59-0151-4986-8cb9-05b5645592d8.png)
 - [](# "repo-header-info") [Shows whether a repo is a fork and adds the number of stars to its header.](https://github-production-user-asset-6210df.s3.amazonaws.com/1402241/267216946-404d79ab-46d7-4bc8-ba88-ae8f8029150d.png)
 - [](# "visit-tag") [When navigating a repo's file on a specific tag, it adds a link to see the release/tag itself.](https://github-production-user-asset-6210df.s3.amazonaws.com/1402241/285123739-e5f4fa0a-3f48-49ef-9b87-2fd6f183c923.png)
+- [](# "actions-run-removal") [Lets you cancel or delete workflow runs faster from the workflow list.](https://github.com/user-attachments/assets/a054f9b4-9d56-40c0-9aac-09a8b07bbb3b)
 
 <!--
 Refer to style guide in the wiki. Keep this message between sections.
@@ -192,13 +193,14 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 
 - [](# "open-all-conversations") [Lets you open all visible issues/PRs at once.](https://github.com/user-attachments/assets/0d890b01-d5ca-4247-8270-055dd6355606)
 - [](# "sticky-conversation-list-toolbar") [Makes the issue/PR list’s filters toolbar sticky.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/261164103-875b70f7-5adc-4bb2-b158-8d5231d47da2.gif)
+- [](# "sticky-comment-header") [Makes the comment header sticky when scrolling through long comments. Requires `show-names` to be enabled.](https://github.com/user-attachments/assets/0d6deca0-0f49-4aa3-ab23-0cfbde4fa4e8)
 - [](# "conversation-authors") [Highlights issues/PRs opened by you or the current repo’s collaborators.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/252804821-a412e05c-fb76-400b-85b5-5acbda538ab2.png)
 - [](# "align-issue-labels") [In issue/PR lists, aligns the labels to the left, below each title.](https://github.com/user-attachments/assets/dca5dc12-7283-4704-a93f-5bfe5f2b1938)
 - [](# "sort-conversations-by-update-time") 🔥 Changes the default sort order of issues/PRs to `Recently updated`.
 - [](# "more-conversation-filters") [Adds `Everything you’re involved in` and `Everything you subscribed to` filters in the search box dropdown.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/253043952-cfb99cea-1c7b-43ad-9144-9d84bda8206f.png)
 - [](# "global-conversation-list-filters") [Adds filters for PRs _in your repos_ and _commented on by you_ in the global PR search.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/253048449-2f7cc331-c379-4ec0-a542-441e8b4f8d79.png)
 - [](# "clean-conversation-sidebar") 🔥 [Hides empty sections (or just their "empty" label) in the issue/PR sidebar.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/253054419-48c38c01-b1dc-42ca-9ff6-fd63392b5921.png)
-- [](# "clean-conversation-filters") [Hides `Projects` and `Milestones` filters in issue/PR lists if they are empty.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/262557246-4ef1c702-eece-4701-9000-0aad21c54c1b.png)
+- [](# "clean-conversation-filters") [Hides `Projects` filter in issue/PR lists if it is empty.](https://github.com/user-attachments/assets/b690405f-b138-413d-9779-9467c160e802)
 - [](# "toggle-everything-with-alt") [Adds a shortcut to toggle all similar items (minimized comments, deferred diffs, etc) at once: <kbd>alt</kbd> <kbd>click</kbd> on each button or checkbox.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/253063446-6f556e7d-2ac5-439d-92f0-0c6d719fc86f.gif)
 - [](# "extend-conversation-status-filters") [Lets you toggle between is:open/is:closed/is:merged filters in searches.](https://user-images.githubusercontent.com/1402241/73605061-2125ed00-45cc-11ea-8cbd-41a53ae00cd3.gif)
 - [](# "bugs-tab") [Adds a "Bugs" tab to repos, if there are any open issues with the "bug" label.](https://user-images.githubusercontent.com/46634000/156766081-f2ea100b-a9f3-472b-bddc-a984a88ddcd3.png)
@@ -308,7 +310,6 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 - [](# "show-user-top-repositories") [Adds a link to the user’s most starred repositories.](https://user-images.githubusercontent.com/1402241/48474026-43e3ae80-e82c-11e8-93de-159ad4c6f283.png)
 - [](# "hide-user-forks") [Filters out forks and archived repos from profiles by default, leaving only the sources.](https://github-production-user-asset-6210df.s3.amazonaws.com/1402241/263195425-85cf0951-c6ed-45fe-8cfc-e447e3ed2a25.png) [(but they can still be shown.)](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/262547829-2da96718-fb18-4f2e-b637-8157f552e278.png)
 - [](# "linkify-user-location") [Linkifies the user location in their hovercard and profile page.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/262554067-43bea584-cdb4-41c7-b0fa-f487e7ef8807.png)
-- [](# "user-local-time") [Shows the user local time in their hovercard (based on their last commit).](https://github-production-user-asset-6210df.s3.amazonaws.com/140871606/257039621-132bd789-e213-4a89-83ff-e1266215c60d.png)
 - [](# "conversation-links-on-repo-lists") [Adds a link to the issues and pulls on the user profile repository tab and global search.](https://user-images.githubusercontent.com/16872793/78712349-82c54900-78e6-11ea-8328-3c2d39a78862.png)
 
 <!--
@@ -318,8 +319,8 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 
 ### Notifications
 
-- [](# "open-all-notifications") [Adds a button to open all your unread notifications at once.](https://github-production-user-asset-6210df.s3.amazonaws.com/140871606/257085496-17e5c6fa-6bad-443d-96d2-d97e73cd1a5e.png)
-- [](# "unread-anywhere") 🔥 [Adds a global shortcut to open all your unread notifications at once: <kbd>g</kbd> <kbd>u</kbd>](https://github.com/user-attachments/assets/3afb7e86-66e8-4b26-a5c0-9c93fb5d8141)
+- [](# "open-all-notifications") [Adds a button to the notification page to open all your unread notifications at once.](https://github-production-user-asset-6210df.s3.amazonaws.com/140871606/257085496-17e5c6fa-6bad-443d-96d2-d97e73cd1a5e.png)
+- [](# "unread-anywhere") 🔥 [Adds a button to the global header to open your unread notifications from any page.](https://github.com/user-attachments/assets/978ac1fe-db98-40f9-9b56-7d289849aa2f)
 - [](# "select-all-notifications-shortcut") Adds a shortcut to select all visible notifications: <kbd>a</kbd>.
 - [](# "stop-redirecting-in-notification-bar") [Stops redirecting to notification inbox from notification bar actions while holding <kbd>Alt</kbd>.](https://user-images.githubusercontent.com/202916/80318782-c38cef80-880c-11ea-9226-72c585f42a51.png)
 - [](# "last-notification-page-button") [Adds a link to the last page of notifications.](https://user-images.githubusercontent.com/16872793/199828181-3ff2cef3-8740-4efa-8122-8f2f222bd657.png)
@@ -369,7 +370,6 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 - [](# "prevent-link-loss") [Suggests fixing links that are wrongly shortened by GitHub.](https://github-production-user-asset-6210df.s3.amazonaws.com/83146190/260087535-a0f19995-5f4a-44e9-87d8-cf742b9bfeed.gif)
 - [](# "linkify-user-edit-history-popup") [Linkifies the username in the edit history popup.](https://user-images.githubusercontent.com/1402241/88917988-9ebb7480-d260-11ea-8690-0a3440f1ebbc.png)
 - [](# "prevent-duplicate-pr-submission") [Avoids creating duplicate PRs when mistakenly clicking "Create pull request" more than once.](https://user-images.githubusercontent.com/16872793/89589967-e029c200-d814-11ea-962b-3ff1f6236781.gif)
-- [](# "convert-pr-to-draft-improvements") [Moves the "Convert PR to Draft" button to the mergeability box and adds visual feedback to its confirm button.](https://user-images.githubusercontent.com/1402241/95644892-885f3f80-0a7f-11eb-8428-8e0fb0c8dfa5.gif)
 - [](# "prevent-pr-merge-panel-opening") Prevents the merge panel from automatically opening on every page load after it’s been opened once.
 - [](# "command-palette-navigation-shortcuts") Adds keyboard shortcuts to select items in command palette using <kbd>ctrl</kbd> <kbd>n</kbd> and <kbd>ctrl</kbd> <kbd>p</kbd> (macOS only).
 - [](# "prevent-comment-loss") [While writing/editing comments, open the preview links in new tab instead of navigating away from the page.](https://user-images.githubusercontent.com/17681399/282616531-2befcabe-5c80-4b9a-bfb5-7b9917847bb5.gif)
@@ -381,6 +381,7 @@ https://github.com/refined-github/refined-github/wiki/Contributing#metadata-guid
 - [](# "no-modals") [Disable modals that reduce user-experience instead of enhancing it.](https://github.com/user-attachments/assets/7b63c7db-ae31-4ee8-8510-3b9db0c11f3e)
 - [](# "same-page-links") Keeps links from opening in new tabs when they shouldn't. "Open in new tab" must be the user's choice, not the default behavior.
 - [](# "linkify-text") [Makes certain text clickable, like issue references in the issue title and discussion sidebar.](https://github.com/user-attachments/assets/1d31f695-c198-477e-a3ae-cc0687417a90)
+- [](# "new-milestone-button") [Adds a 'New Milestone' button to the milestone page.](https://github.com/user-attachments/assets/1fceb336-6d32-4733-afe0-9971989b1987)
 
 <!--
 Refer to style guide in the wiki. Keep this message between sections.
@@ -399,5 +400,4 @@ We're happy to receive suggestions and contributions, but be aware this is a hig
 
 ## Links
 
-- [More extensions](https://github.com/refined-github/refined-github/wiki/Other-extensions)
 - [Contribution guide](https://github.com/refined-github/refined-github/wiki/Contributing)

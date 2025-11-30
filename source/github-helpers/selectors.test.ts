@@ -54,13 +54,14 @@ describe.concurrent('selectors', () => {
 	// Exclude URL arrays
 	const selectors: Array<[name: string, selector: string]> = [];
 	for (const [name, selector] of Object.entries(exports)) {
-		if (!Array.isArray(selector)) {
-			selectors.push([name, selector]);
+		if (!name.endsWith('_')) {
+			selectors.push([name, String(selector)]);
 		}
 	}
 
 	test.each(selectors)('%s', {timeout: 9999}, async (name, selector: string) => {
 		// @ts-expect-error Index signature bs
+
 		const urls = exports[name + '_'] as exports.UrlMatch[];
 
 		assert.isArray(urls, `No URLs defined for "${name}"`);
